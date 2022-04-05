@@ -1,6 +1,6 @@
 ﻿namespace TuikProject
 {
-    partial class ProductMatch
+    partial class UcafMatch
     {
         /// <summary>
         /// Required designer variable.
@@ -29,55 +29,45 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtMatchName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTuikReport = new System.Windows.Forms.ComboBox();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.dG1 = new System.Windows.Forms.DataGridView();
             this.colDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTuikReportId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTuikReportName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.txtUCAF = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMatchName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dG1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // btnClose
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Eşleşecek Ad";
+            this.btnClose.Image = global::TuikProject.Properties.Resources.icons8_close_16;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(637, 11);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(105, 64);
+            this.btnClose.TabIndex = 20;
+            this.btnClose.TabStop = false;
+            this.btnClose.Text = "Kapat";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // txtMatchName
+            // btnSave
             // 
-            this.txtMatchName.Location = new System.Drawing.Point(167, 22);
-            this.txtMatchName.Name = "txtMatchName";
-            this.txtMatchName.Size = new System.Drawing.Size(222, 26);
-            this.txtMatchName.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 67);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 19);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Eşleşecek Tüik Sütunu";
-            // 
-            // txtTuikReport
-            // 
-            this.txtTuikReport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txtTuikReport.FormattingEnabled = true;
-            this.txtTuikReport.Location = new System.Drawing.Point(167, 64);
-            this.txtTuikReport.Name = "txtTuikReport";
-            this.txtTuikReport.Size = new System.Drawing.Size(330, 27);
-            this.txtTuikReport.TabIndex = 1;
-            this.txtTuikReport.SelectedIndexChanged += new System.EventHandler(this.txtTuikReport_SelectedIndexChanged);
+            this.btnSave.Image = global::TuikProject.Properties.Resources.icons8_save_16;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(520, 11);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(111, 64);
+            this.btnSave.TabIndex = 17;
+            this.btnSave.Text = "Kaydet";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // dG1
             // 
@@ -93,12 +83,12 @@
             this.colTuikReportId,
             this.colTuikReportName});
             this.dG1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dG1.Location = new System.Drawing.Point(0, 125);
+            this.dG1.Location = new System.Drawing.Point(0, 107);
             this.dG1.Name = "dG1";
             this.dG1.RowHeadersVisible = false;
             this.dG1.RowTemplate.Height = 25;
-            this.dG1.Size = new System.Drawing.Size(773, 556);
-            this.dG1.TabIndex = 11;
+            this.dG1.Size = new System.Drawing.Size(803, 556);
+            this.dG1.TabIndex = 19;
             this.dG1.TabStop = false;
             this.dG1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dG1_CellContentClick);
             this.dG1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dG1_CellDoubleClick);
@@ -120,68 +110,77 @@
             // colName
             // 
             this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colName.DataPropertyName = "Name";
-            this.colName.HeaderText = "Ürün Adı";
+            this.colName.DataPropertyName = "Match";
+            this.colName.HeaderText = "Eşleşme Adı";
             this.colName.Name = "colName";
             // 
             // colTuikReportId
             // 
-            this.colTuikReportId.DataPropertyName = "TuikReportId";
-            this.colTuikReportId.HeaderText = "Eşleşme Id";
+            this.colTuikReportId.DataPropertyName = "UCAFId";
+            this.colTuikReportId.HeaderText = "Mizan Id";
             this.colTuikReportId.Name = "colTuikReportId";
             this.colTuikReportId.Visible = false;
             // 
             // colTuikReportName
             // 
             this.colTuikReportName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colTuikReportName.DataPropertyName = "TuikReportName";
-            this.colTuikReportName.HeaderText = "Eşleşen Ürün Adı";
+            this.colTuikReportName.DataPropertyName = "UCAFName";
+            this.colTuikReportName.HeaderText = "Hesap Adı";
             this.colTuikReportName.Name = "colTuikReportName";
             // 
-            // btnClose
+            // txtUCAF
             // 
-            this.btnClose.Image = global::TuikProject.Properties.Resources.icons8_close_16;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(637, 22);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(105, 64);
-            this.btnClose.TabIndex = 13;
-            this.btnClose.TabStop = false;
-            this.btnClose.Text = "Kapat";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.txtUCAF.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.txtUCAF.FormattingEnabled = true;
+            this.txtUCAF.Location = new System.Drawing.Point(167, 53);
+            this.txtUCAF.Name = "txtUCAF";
+            this.txtUCAF.Size = new System.Drawing.Size(330, 27);
+            this.txtUCAF.TabIndex = 16;
+            this.txtUCAF.SelectedIndexChanged += new System.EventHandler(this.txtUCAF_SelectedIndexChanged);
             // 
-            // btnSave
+            // label2
             // 
-            this.btnSave.Image = global::TuikProject.Properties.Resources.icons8_save_16;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(520, 22);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(111, 64);
-            this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "Kaydet";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 19);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Eşleşecek Ad";
             // 
-            // ProductMatch
+            // txtMatchName
+            // 
+            this.txtMatchName.Location = new System.Drawing.Point(167, 11);
+            this.txtMatchName.Name = "txtMatchName";
+            this.txtMatchName.Size = new System.Drawing.Size(222, 26);
+            this.txtMatchName.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 19);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Eşleşecek Kod";
+            // 
+            // UcafMatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Cornsilk;
-            this.ClientSize = new System.Drawing.Size(773, 681);
+            this.ClientSize = new System.Drawing.Size(803, 663);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dG1);
-            this.Controls.Add(this.txtTuikReport);
+            this.Controls.Add(this.txtUCAF);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtMatchName);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ProductMatch";
+            this.Name = "UcafMatch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Stok Eşleştirme Formu";
-            this.Load += new System.EventHandler(this.ProductMatch_Load);
+            this.Text = "UcafMatch";
+            this.Load += new System.EventHandler(this.UcafMatch_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dG1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,13 +189,13 @@
 
         #endregion
 
-        private Label label1;
-        private TextBox txtMatchName;
-        private Label label2;
-        private ComboBox txtTuikReport;
-        private DataGridView dG1;
         private Button btnClose;
         private Button btnSave;
+        private DataGridView dG1;
+        private ComboBox txtUCAF;
+        private Label label2;
+        private TextBox txtMatchName;
+        private Label label1;
         private DataGridViewButtonColumn colDelete;
         private DataGridViewTextBoxColumn colId;
         private DataGridViewTextBoxColumn colName;

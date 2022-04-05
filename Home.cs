@@ -72,8 +72,20 @@ namespace TuikProject
             adapter.Fill(dataTable);
 
             int count = dataTable.Rows.Count;
+
+            string[] cantList = { "HIZ", "S", "D", "150", "153","9D100111111", "50SAN" };
+
             for (int i = 0; i < count; i++)
-            {
+            {   
+                string productCode = dataTable.Rows[i]["STOK_KODU"].ToString();
+                foreach (var item in cantList)
+                {
+                    if (productCode.Contains(item))
+                    {
+                        goto next;
+                    }
+                }
+
                 TuikReportDetail tuikReportDetail = new TuikReportDetail()
                 {
                     ProductCode = dataTable.Rows[i]["STOK_KODU"].ToString(),
@@ -84,6 +96,7 @@ namespace TuikProject
                 };
                 context.TuikReportDetails.Add(tuikReportDetail);
                 context.SaveChanges();
+            next:;
             }
         }
 
@@ -180,20 +193,26 @@ namespace TuikProject
             var tuikDetailResults = context.TuikReportDetails.Where(p => p.TuikReportId == 0).ToList();
             var tuikResults = context.TuikReports.ToList();
             var ucafLists = context.UCAFs.ToList();
+            
             dG1.DataSource = tuikDetailResults;
             dG2.DataSource = tuikResults;
             dG3.DataSource = "";
-        }
-
-        
+            dG4.DataSource = ucafLists;
+        }        
 
         private void btnReport_Click(object sender, EventArgs e)
-        {
-            ClearTuikReport();
-            GetListProducts();
-            MatchProducts();
-            GetTuikReport();
-            GetResult();
+        {         
+            if (MessageBox.Show("Rapor hazýrlamak istiyor musun?","Rapor Hazýrla",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearTuikReport();
+                GetListProducts();
+                MatchProducts();
+                GetTuikReport();
+                ClearUCAFs();
+                GetUcafs();
+                GetResult();
+            }
+            
         }
 
         void GetDate()
@@ -302,12 +321,41 @@ namespace TuikProject
 
         private void dG2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var row = dG2.CurrentRow.Cells[0];
-            if (row != null)
+            int rowId = Convert.ToInt16(dG2.CurrentRow.Cells["colId"].Value.ToString());
+            if (rowId > 0)
             {
-                var results = context.TuikReportDetails.Where(t => t.TuikReportId == Convert.ToInt16(row.ToString())).ToList();
-                dG3.DataSource = results;
+                var results = context.TuikReportDetails.Where(t => t.TuikReportId == rowId).ToList();
+                dG3.DataSource = results;                
             }
+        }
+
+        private void btnTuikList_Click(object sender, EventArgs e)
+        {
+            TuikList tuikList = new TuikList();
+            tuikList.Show();
+        }
+        
+        private void Home_Load(object sender, EventArgs e)
+        {
+            GetResult();
+        }
+
+        private void btnProductMatch_Click(object sender, EventArgs e)
+        {
+            ProductMatch productMatch = new ProductMatch();
+            productMatch.Show();
+        }
+
+        private void btnUCAFList_Click(object sender, EventArgs e)
+        {
+            UCAFList uCAFList = new UCAFList();
+            uCAFList.Show();
+        }
+
+        private void btnUCAFMatch_Click(object sender, EventArgs e)
+        {
+            UcafMatch uCAFMatch = new UcafMatch();
+            uCAFMatch.Show();
         }
     }
 }
