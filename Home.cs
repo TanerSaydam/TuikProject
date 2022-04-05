@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using TuikProject.Models;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace TuikProject
 {
@@ -200,17 +201,116 @@ namespace TuikProject
             dG4.DataSource = ucafLists;
         }        
 
+        void GetExcel()
+        {
+            Excel.Application excel = new Excel.Application();
+            object Missing = Type.Missing;
+            Excel.Workbook workbook = excel.Workbooks.Add(Missing);
+            Excel.Worksheet worksheet = (Excel.Worksheet)excel.Sheets[1];
+            Excel.Worksheet worksheet2 = (Excel.Worksheet)excel.Sheets.Add();
+
+            worksheet.Name = "Tüik Raporu";
+            worksheet2.Name = "Mizan Raporu";
+
+            //Tüik Raporu
+            worksheet.Range["A1"].ColumnWidth = 4.43;
+            worksheet.Range["B1"].ColumnWidth = 19;
+            worksheet.Range["C1"].ColumnWidth = 7.43;
+            worksheet.Range["D1"].ColumnWidth = 11.73;
+
+            worksheet.Range["A1"].Value = "S.No";
+            worksheet.Range["B1"].Value = "Ürün Adý";
+            worksheet.Range["C1"].Value = "Adet";
+            worksheet.Range["D1"].Value = "Tutar";
+
+            worksheet.Range["A1:D1"].Font.Color = -16776961;
+            worksheet.Range["A1:D1"].Font.Bold = true;
+            worksheet.Range["C:D"].NumberFormat = "#,##0.00";
+            
+            int rowCount = worksheet.Range["A" + worksheet.Rows.Count].End[Excel.XlDirection.xlUp].Row;
+
+            rowCount++;
+            int n = 1;
+
+            var results = context.TuikReports.ToList();
+            foreach (var item in results)
+            {
+                worksheet.Range["A" + rowCount].Value = n;
+                worksheet.Range["B" + rowCount].Value = item.Name;
+                worksheet.Range["C" + rowCount].Value = item.Count;
+                worksheet.Range["D" + rowCount].Value = item.Amount;
+                rowCount++;
+                n++;
+            }
+
+            worksheet.Range["A" + rowCount].Value = "TOPLAM";
+            worksheet.Range["A" + rowCount + ":D" + rowCount].Font.Color = -16776961;
+            worksheet.Range["A" + rowCount + ":D" + rowCount].Font.Bold = true;
+            worksheet.Range["C" + rowCount].Value = "=Sum(C2:C" + (rowCount - 1) + ")";
+            worksheet.Range["D" + rowCount].Value = "=Sum(D2:D" + (rowCount - 1) + ")";
+
+            decimal productTotal = Convert.ToDecimal(worksheet.Range["D" + rowCount].Value);
+
+            worksheet.Range["A1:D" + rowCount].Borders.LineStyle = 1;
+            //Tüik Raporu
+
+            //Mizan Raporu            
+            worksheet2.Range["A1"].Value = "Hesap Açýklamasý";
+            worksheet2.Range["B1"].Value = "Tutar";
+
+            worksheet2.Range["A1"].ColumnWidth = 34;
+            worksheet2.Range["B1"].ColumnWidth = 13;
+
+            worksheet2.Range["A1:B1"].Font.Color = -16776961;
+            worksheet2.Range["A1:B1"].Font.Bold = true;
+
+            worksheet2.Range["B:B"].NumberFormat = "#,##0.00";
+
+            rowCount = worksheet2.Range["A" + worksheet.Rows.Count].End[Excel.XlDirection.xlUp].Row;
+
+            rowCount++;            
+
+            var results2 = context.UCAFs.ToList();
+            foreach (var item in results2)
+            {
+                worksheet2.Range["A" + rowCount].Value = item.Name;
+                worksheet2.Range["B" + rowCount].Value = item.Total;
+                rowCount++;
+            }
+
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Color = -16776961;
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Bold = true;
+            worksheet2.Range["A" + rowCount].Value = "TOPLAM";
+            worksheet2.Range["B" + rowCount].Value = "=Sum(B2:B" + (rowCount-1) + ")";
+            rowCount++;
+
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Color = -16776961;
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Bold = true;
+            worksheet2.Range["A" + rowCount].Value = "STOK SATIÞ TOPLAMI";
+            worksheet2.Range["B" + rowCount].Value = productTotal;
+            rowCount++;
+
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Color = -16776961;
+            worksheet2.Range["A" + rowCount + ":B" + rowCount].Font.Bold = true;
+            worksheet2.Range["A" + rowCount].Value = "FARK";
+            worksheet2.Range["B" + rowCount].Value = productTotal - Convert.ToDecimal(worksheet2.Range["B" + rowCount].Value);
+            //Mizan Raporu
+
+            excel.Visible = true;
+        }
+
         private void btnReport_Click(object sender, EventArgs e)
         {         
             if (MessageBox.Show("Rapor hazýrlamak istiyor musun?","Rapor Hazýrla",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ClearTuikReport();
-                GetListProducts();
-                MatchProducts();
-                GetTuikReport();
+                //GetListProducts();
+                //MatchProducts();
+                //GetTuikReport();
                 ClearUCAFs();
-                GetUcafs();
+                //GetUcafs();
                 GetResult();
+                GetExcel();
             }
             
         }
