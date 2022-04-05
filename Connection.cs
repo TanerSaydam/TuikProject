@@ -19,7 +19,7 @@ namespace TuikProject
             InitializeComponent();
         }
 
-        void show()
+        void Show()
         {
             var result = context.Connections.FirstOrDefault();
             if (result != null)
@@ -65,7 +65,7 @@ namespace TuikProject
 
         private void Connection_Load(object sender, EventArgs e)
         {
-            show();
+            Show();
         }
     }
 }

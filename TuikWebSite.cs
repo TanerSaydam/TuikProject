@@ -19,7 +19,7 @@ namespace TuikProject
             InitializeComponent();
         }
 
-        void show()
+        void Show()
         {
             var result = context.TuikWebSite.FirstOrDefault();
             if (result != null)
@@ -32,7 +32,7 @@ namespace TuikProject
 
         private void TuikWebSite_Load(object sender, EventArgs e)
         {
-            show();
+            Show();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

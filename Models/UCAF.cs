@@ -9,10 +9,7 @@ namespace TuikProject.Models
     public class UCAF
     {
         public int Id { get; set; }
-        public decimal TotalRevenue { get; set; }
-        public decimal OutCountry { get; set; }
-        public decimal UpCountry { get; set; }
-        public decimal ProductSalesList { get; set; }
-        public decimal OurSource { get; set; }
+        public string Name { get; set; }
+        public decimal Total { get; set; }
     }
 }

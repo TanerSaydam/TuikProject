@@ -11,5 +11,6 @@ namespace TuikProject.Models
         public int Id { get; set; }
         public int UCAFId { get; set; }
         public string Match { get; set; }
+        public decimal Total { get; set; }
     }
 }
